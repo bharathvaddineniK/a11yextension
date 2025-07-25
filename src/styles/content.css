@@ -1,0 +1,4 @@
+/* styles/content.css */
+body.dyslexia-font * {
+  font-family: 'OpenDyslexic', Arial, sans-serif !important;
+}

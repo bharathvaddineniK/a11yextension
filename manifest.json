@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "YouAccess",
+  "version": "1.0.0",
+  "description": "Accessibility tools for YouTube",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+        "128": "public/icon.png"
+    }
+  },
+  "permissions": ["storage", "scripting", "activeTab"],
+  "icons": {
+        "128": "public/icon.png"
+    },
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["content.js"],
+      "css": ["styles/global.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}

@@ -1,0 +1,215 @@
+/* src/styles/global.css */
+
+body {
+  margin: 0;
+  padding: 1rem;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  background: #f4f7fe;
+  color: #111;
+  width: 320px;
+  min-height: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+h1 {
+  font-size: 1.2rem;
+  text-align: center;
+  color: #1d4ed8;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+/* Card container */
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease;
+}
+
+.card:last-of-type {
+  margin-bottom: 0;
+}
+
+.card h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+}
+
+.card p {
+  font-size: 0.85rem;
+  color: #444;
+  margin: 0;
+}
+
+/* Toggle styles (accessible and styled) */
+.toggle-checkbox {
+  display: none;
+}
+
+.toggle-label {
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  background-color: #ccc;
+  border-radius: 24px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-label:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.toggle-slider {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  height: 18px;
+  width: 18px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.toggle-checkbox:checked + .toggle-label {
+  background-color: #3b82f6;
+}
+
+.toggle-checkbox:checked + .toggle-label .toggle-slider {
+  transform: translateX(20px);
+}
+
+/* Font override when dyslexia font is enabled */
+.dyslexia-font * {
+  font-family: 'OpenDyslexic', 'Lexend', sans-serif !important;
+  letter-spacing: 0.05em !important;
+  line-height: 1.6 !important;
+  font-size: 1.1rem !important;
+}
+
+/* Font settings panel */
+.font-settings {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #ffffff;
+  border: 1px solid #e0e6f0;
+  border-radius: 10px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-size: 14px;
+  color: #222;
+}
+
+.font-settings label {
+  font-weight: 500;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.font-settings select {
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #fdfdfd;
+  font-family: inherit;
+}
+
+.font-settings input[type="range"] {
+  width: 100%;
+}
+
+.font-settings output {
+  display: inline-block;
+  min-width: 40px;
+  text-align: right;
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Layout fix: setting correct max height and no over-scroll */
+html,
+body {
+  max-height: 600px;
+  overflow-x: hidden;
+  scrollbar-width: none; /* Firefox */
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome */
+}
+
+.reset-button {
+  margin-top: 1rem;
+  padding: 10px 16px;
+  background-color: #ef4444;
+  color: white;
+  font-size: 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s ease;
+}
+
+.reset-button:hover {
+  background-color: #dc2626;
+}
+
+.reset-button:focus {
+  outline: 2px solid #2563eb;
+}
+
+.focus-settings {
+  margin-top: 10px;
+  padding: 10px 15px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.focus-settings label {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.focus-settings input[type="range"] {
+  margin-top: 6px;
+  accent-color: #0066cc;
+}
+
+.focus-settings input[type="color"] {
+  margin-top: 6px;
+  padding: 0;
+  border: none;
+  width: 100%;
+  max-width: 120px;
+  height: 36px;
+  cursor: pointer;
+  border-radius: 6px;
+  background-color: transparent;
+  box-shadow: 0 0 0 1px #bbb;
+  transition: box-shadow 0.2s ease;
+}
+
+.focus-settings input[type="color"]:hover,
+.focus-settings input[type="color"]:focus-visible {
+  box-shadow: 0 0 0 2px #0066cc;
+  outline: none;
+}
+
