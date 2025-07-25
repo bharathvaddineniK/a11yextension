@@ -76,7 +76,7 @@ const defaultFocusOptions = {
     chrome.storage.local.set({
       dyslexiaFont: false,
       dyslexiaContrast: false,
-      focusMode: false,
+      focusSettings: defaultFocusOptions,
       contrastTheme: "yellow",
       dyslexiaFontSettings: defaultFontSettings,
       focusMode: false,
@@ -108,16 +108,24 @@ const defaultFocusOptions = {
     chrome.storage.local.get([
       "dyslexiaFont",
       "dyslexiaContrast",
-      "focusMode",
+      "focusSettings",
       "dyslexiaFontSettings",
       "contrastTheme",
+      "focusMode"
     ], (result) => {
       if (typeof result.dyslexiaFont === "boolean") setDyslexiaFont(result.dyslexiaFont);
       if (typeof result.dyslexiaContrast === "boolean") setDyslexiaContrast(result.dyslexiaContrast);
       if (typeof result.focusMode === "boolean") setFocusMode(result.focusMode);
       if (result.dyslexiaFontSettings) setFontSettings(result.dyslexiaFontSettings);
       if (result.contrastTheme) setContrastTheme(result.contrastTheme);
-      if (result.focusSettings) setFocusOptions(result.focusSettings);
+      if (result.focusSettings) {
+  setFocusOptions(result.focusSettings);
+} else {
+  // Load default if not found
+  chrome.storage.local.set({ focusSettings: defaultFocusOptions });
+  setFocusOptions(defaultFocusOptions);
+}
+
     });
   }, []);
 
@@ -153,15 +161,35 @@ const defaultFocusOptions = {
         description="Use a high-contrast theme with WCAG-friendly colors."
         toggleId="dyslexiaContrast"
         isEnabled={dyslexiaContrast}
-        onToggle={() =>
-          handleToggle({
-            state: dyslexiaContrast,
-            setState: setDyslexiaContrast,
-            storageKey: "dyslexiaContrast",
-            messageType: "TOGGLE_DYSLEXIA_CONTRAST",
-            useTabs: true,
-          })
-        }
+       onToggle={() => {
+  const newState = !dyslexiaContrast;
+
+  setDyslexiaContrast(newState);
+  chrome.storage.local.set({ dyslexiaContrast: newState });
+
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    if (!tabs[0]) return;
+
+    if (newState) {
+      // Reapply the previously stored theme
+      chrome.storage.local.get("contrastTheme", (result) => {
+        const theme = result.contrastTheme || "yellow";
+        setContrastTheme(theme); // Ensure UI sync
+        chrome.tabs.sendMessage(tabs[0].id, {
+          type: "APPLY_CONTRAST_THEME",
+          theme,
+        });
+      });
+    } else {
+      // Remove contrast styles
+      chrome.tabs.sendMessage(tabs[0].id, {
+        type: "TOGGLE_DYSLEXIA_CONTRAST",
+        enabled: false,
+      });
+    }
+  });
+}}
+
       />
 
       {dyslexiaContrast && (

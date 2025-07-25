@@ -16,6 +16,8 @@ export function applyFocusMode({ blurOpacity = 0.6, borderColor = "#FFD700" } = 
     pointer-events: none;
   `;
   overlay.style.mixBlendMode = "multiply"; // fixes blur hiding under contrast
+  overlay.style.isolation = "isolate";
+
 
   document.body.appendChild(overlay);
 

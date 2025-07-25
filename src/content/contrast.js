@@ -9,7 +9,6 @@ const contrastThemes = {
     background: "#1a1a1a",   // Very dark gray
     text: "#ffeb3b",         // Softer yellow (AAA contrast)
     link: "#00bcd4",
-    opacity: "0.5",
   },
   black: {
     background: "#000000",
@@ -56,11 +55,12 @@ if (
     color: ${text} !important;
   }
 
-  *, *::before, *::after {
-    background-color: transparent !important;
-    color: ${text} !important;
-    border-color: ${text} !important;
-  }
+  body *:not(#youaccess-focus-overlay):not(#youaccess-focus-overlay *):not(script):not(style) {
+  color: ${text} !important;
+  border-color: ${text} !important;
+  background-color: transparent !important;
+}
+
 
 
   a, a:visited {
